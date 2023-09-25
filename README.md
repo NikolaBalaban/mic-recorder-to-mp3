@@ -1,26 +1,21 @@
 # Microphone Recorder to Mp3
 
-Record your microphone audio input and get an ```audio/mp3``` file in the end.
+Forked from mic-recorder-to-mp3 in order to provide more config options.
+Record your microphone audio input and get an `audio/mp3` file in the end.
 
 # Install
 
 ## Yarn
 
 ```bash
-yarn add mic-recorder-to-mp3
+yarn add @tscole/mic-recorder-to-mp3
 ```
 
 ## npm
 
 ```bash
-npm install mic-recorder-to-mp3
+npm install @tscole/mic-recorder-to-mp3
 ```
-
-## CDN Usage
-
-You can add via CDN using the address: [https://unpkg.com/mic-recorder-to-mp3@2.2.1](https://unpkg.com/mic-recorder-to-mp3@2.2.1). You can find the minified version in the same address, ex: [https://unpkg.com/mic-recorder-to-mp3@2.2.1/dist/index.min.js](https://unpkg.com/mic-recorder-to-mp3@2.2.1/dist/index.min.js)
-
-**About the version in URL**: Change the URL version to any of our releases, or use https://unpkg.com/mic-recorder-to-mp3 to automatically use the latest version.
 
 # Development
 
@@ -39,38 +34,48 @@ npm run build
 # How to use
 
 ```js
-const MicRecorder = require('mic-recorder-to-mp3');
+const MicRecorder = require("mic-recorder-to-mp3");
 
 // New instance
 const recorder = new MicRecorder({
-  bitRate: 128
+  bitRate: 128,
+  audio: {
+    sampleRate: 44100,
+    channelCount: 2,
+    echoCancellation: false,
+    volume: 1.0,
+  },
 });
 
 // Start recording. Browser will request permission to use your microphone.
-recorder.start().then(() => {
-  // something else
-}).catch((e) => {
-  console.error(e);
-});
+recorder
+  .start()
+  .then(() => {
+    // something else
+  })
+  .catch((e) => {
+    console.error(e);
+  });
 
 // Once you are done singing your best song, stop and get the mp3.
 recorder
-.stop()
-.getMp3().then(([buffer, blob]) => {
-  // do what ever you want with buffer and blob
-  // Example: Create a mp3 file and play
-  const file = new File(buffer, 'me-at-thevoice.mp3', {
-    type: blob.type,
-    lastModified: Date.now()
+  .stop()
+  .getMp3()
+  .then(([buffer, blob]) => {
+    // do what ever you want with buffer and blob
+    // Example: Create a mp3 file and play
+    const file = new File(buffer, "me-at-thevoice.mp3", {
+      type: blob.type,
+      lastModified: Date.now(),
+    });
+
+    const player = new Audio(URL.createObjectURL(file));
+    player.play();
+  })
+  .catch((e) => {
+    alert("We could not retrieve your message");
+    console.log(e);
   });
-
-  const player = new Audio(URL.createObjectURL(file));
-  player.play();
-
-}).catch((e) => {
-  alert('We could not retrieve your message');
-  console.log(e);
-});
 ```
 
 - Check the [samples](https://github.com/closeio/mic-recorder-to-mp3/tree/master/samples) folder for more examples.
