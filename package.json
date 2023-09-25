@@ -1,16 +1,20 @@
 {
-  "name": "mic-recorder-to-mp3",
-  "version": "2.2.2",
-  "description": "Record your microphone audio input and get an audio/mp3 ouput buffer/blob.",
+  "name": "@tscole/mic-recorder-to-mp3",
+  "version": "2.2.3",
+  "description": "Record your microphone audio input and get an audio/mp3 ouput buffer/blob with additional config options",
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
     "minify": "minify=true rollup -c",
     "watch": "rollup -c -w"
   },
-  "repository": "git@github.com:closeio/mic-recorder-to-mp3.git",
-  "author": "Djalma Araujo <djalma@close.io>",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tscole/mic-recorder-to-mp3.git"
+  },
+  "author": "Tim Cole <tscole@inspiredwd.com>",
   "contributors": [
+    "Tim Cole <tscole@inspiredwd.com>",
     "Vitor Buzinaro <vitor@close.io>"
   ],
   "license": "MIT",
@@ -43,5 +47,9 @@
   },
   "peerDependencies": {
     "webrtc-adapter": ">=4.1.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/tscole/mic-recorder-to-mp3/issues"
+  },
+  "homepage": "https://github.com/tscole/mic-recorder-to-mp3#readme"
 }
